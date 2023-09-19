@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Outlet } from "react-router-dom";
 import {
   UserAddOutlined,
   UserSwitchOutlined,
@@ -12,7 +12,7 @@ import {
   LinkOutlined,
   ScheduleOutlined,
 } from "@ant-design/icons";
-import { Menu } from "antd";
+import { Menu, Col, Row } from "antd";
 
 function getItem(label, key, icon, children, type) {
   return {
@@ -61,16 +61,23 @@ const Home = () => {
   };
   return (
     <>
-      <Menu
-        onClick={onClick}
-        style={{
-          width: 256,
-        }}
-        defaultSelectedKeys={["1"]}
-        defaultOpenKeys={["sub1"]}
-        mode="inline"
-        items={items}
-      />
+      <Row>
+        <Col span={6}>
+          <Menu
+            onClick={onClick}
+            style={{
+              width: 256,
+            }}
+            // defaultSelectedKeys={["1"]}
+            // defaultOpenKeys={["sub1"]}
+            mode="inline"
+            items={items}
+          />
+        </Col>
+        <Col span={18} pull={1}>
+          <Outlet />
+        </Col>
+      </Row>
     </>
   );
 };
