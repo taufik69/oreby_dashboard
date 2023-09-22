@@ -1,0 +1,5 @@
+.wyswing {
+  border: 2px solid #919191;
+  height: min(300px, 100%);
+  padding: 15px;
+}
