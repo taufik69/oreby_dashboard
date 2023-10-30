@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate, Outlet } from "react-router-dom";
+
 import {
   UserAddOutlined,
   UserSwitchOutlined,
@@ -34,7 +35,7 @@ const items = [
   },
   getItem("Product", "sub2", <OrderedListOutlined />, [
     getItem("Add product", "addProduct", <AlignLeftOutlined />),
-    getItem("Product List", "4", <AlignLeftOutlined />),
+    getItem("All Product", "allproducts", <AlignLeftOutlined />),
   ]),
   {
     type: "divider",
@@ -56,7 +57,6 @@ const items = [
 const Home = () => {
   const navigate = useNavigate();
   const onClick = (e) => {
-    console.log("click ", e.key);
     navigate(`/${e.key}`);
   };
   return (
