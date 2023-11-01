@@ -1,93 +1,120 @@
-import React, { useEffect } from "react";
-import { Space, Table, Tag } from "antd";
+import React, { useEffect, useState } from "react";
+import { Space, Table, Button } from "antd";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useRef } from "react";
+
+const HandleDelete = async (id) => {
+  const routeUrl = "http://localhost:3000/api/v1/product/deleteItem";
+
+  const getresonponse = await axios.post(routeUrl, {
+    id,
+  });
+  if (getresonponse.data.message) {
+    toast.success(`${getresonponse.data.message}`, {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  }
+};
 
 const columns = [
   {
-    title: "Name",
+    title: "Serial",
+    dataIndex: "Serial",
+    key: "Serial",
+    render: (text) => <a>{text}</a>,
+  },
+  {
+    title: "Products Name",
     dataIndex: "name",
     key: "name",
     render: (text) => <a>{text}</a>,
   },
+
   {
-    title: "Age",
-    dataIndex: "age",
-    key: "age",
-  },
-  {
-    title: "Address",
-    dataIndex: "address",
-    key: "address",
-  },
-  {
-    title: "Tags",
-    key: "tags",
-    dataIndex: "tags",
-    render: (_, { tags }) => (
-      <>
-        {tags.map((tag) => {
-          let color = tag.length > 5 ? "geekblue" : "green";
-          if (tag === "loser") {
-            color = "volcano";
-          }
-          return (
-            <Tag color={color} key={tag}>
-              {tag.toUpperCase()}
-            </Tag>
-          );
-        })}
-      </>
+    title: "Products Image",
+    dataIndex: "product_image",
+    key: "product_image",
+    render: (_, record) => (
+      <Space size="middle">
+        <img
+          src="https://www.applegadgetsbd.com/_next/image?url=https%3A%2F%2Fadminapi.applegadgetsbd.com%2Fstorage%2Fmedia%2Fthumb%2F2323-92738.jpg&w=256&q=100"
+          alt="no Image"
+          width={50}
+        />
+      </Space>
     ),
+  },
+  {
+    title: "Store Name",
+    dataIndex: "store",
+    key: "store",
   },
   {
     title: "Action",
     key: "action",
     render: (_, record) => (
       <Space size="middle">
-        <a>Invite {record.name}</a>
-        <a>Delete</a>
+        <Button type="primary">Edit</Button>
+        <Button type="primary" danger onClick={() => HandleDelete(record.key)}>
+          Delete
+        </Button>
       </Space>
     ),
   },
 ];
-const data = [
-  {
-    key: "1",
-    name: "John Brown",
-    age: 32,
-    address: "New York No. 1 Lake Park",
-    tags: ["nice", "developer"],
-  },
-  {
-    key: "2",
-    name: "Jim Green",
-    age: 42,
-    address: "London No. 1 Lake Park",
-    tags: ["loser"],
-  },
-  {
-    key: "3",
-    name: "Joe Black",
-    age: 32,
-    address: "Sydney No. 1 Lake Park",
-    tags: ["cool", "teacher"],
-  },
-];
 
 const AllProducts = () => {
+  const [Product, setProduct] = useState([]);
+  // HandleDelete button functionality
+
   useEffect(() => {
     const allProductsData = async () => {
       const Data = await axios.get(
         "http://localhost:3000/api/v1/product/allproducts"
       );
-      console.log(Data.data.Data);
+      let productArr = [];
+      Data.data.Data.map((item, index) => {
+        productArr.push({
+          key: item._id,
+          Serial: index,
+          name: item.name,
+          product_image:
+            "https://www.applegadgetsbd.com/_next/image?url=https%3A%2F%2Fadminapi.applegadgetsbd.com%2Fstorage%2Fmedia%2Fthumb%2F2323-92738.jpg&w=256&q=100",
+          store: item.store.storeName,
+        });
+      });
+      setProduct(productArr);
     };
 
     allProductsData();
   }, []);
+
+  //   console.log(Product[0].store.storeName);
   return (
     <>
-      <Table columns={columns} dataSource={data} />
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+      {/* Same as */}
+      <Table columns={columns} dataSource={Product} />
     </>
   );
 };
