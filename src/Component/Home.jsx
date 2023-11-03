@@ -36,6 +36,7 @@ const items = [
   getItem("Product", "sub2", <OrderedListOutlined />, [
     getItem("Add product", "addProduct", <AlignLeftOutlined />),
     getItem("All Product", "allproducts", <AlignLeftOutlined />),
+    getItem("All Product Variants", "allvariant", <AlignLeftOutlined />),
   ]),
   {
     type: "divider",

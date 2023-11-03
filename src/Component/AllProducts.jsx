@@ -7,8 +7,8 @@ import "react-toastify/dist/ReactToastify.css";
 const AllProducts = () => {
   const [Product, setProduct] = useState([]);
   const [realtimeProduct, setrealtimeProduct] = useState(false);
-  // HandleDelete button functionality
 
+  // HandleDelete button functionality
   const HandleDelete = async (id) => {
     //this varibale work for just realtime
     setrealtimeProduct(!realtimeProduct);
@@ -51,11 +51,7 @@ const AllProducts = () => {
       key: "product_image",
       render: (_, record) => (
         <Space size="middle">
-          <img
-            src="https://www.applegadgetsbd.com/_next/image?url=https%3A%2F%2Fadminapi.applegadgetsbd.com%2Fstorage%2Fmedia%2Fthumb%2F2323-92738.jpg&w=256&q=100"
-            alt="no Image"
-            width={50}
-          />
+          <img src={record.product_image} alt="no Image" width={50} />
         </Space>
       ),
     },
