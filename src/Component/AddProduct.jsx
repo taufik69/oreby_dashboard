@@ -1,22 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { EditorState } from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
 import { Input, Select, Tag } from "antd";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-const options = [
-  {
-    value: "gold",
-  },
-  {
-    value: "lime",
-  },
-  {
-    value: "green",
-  },
-  {
-    value: "cyan",
-  },
-];
+import { useLayoutEffect } from "react";
+import axios from "axios";
+
 const tagRender = (props) => {
   const { label, value, closable, onClose } = props;
   const onPreventMouseDown = (event) => {
@@ -38,6 +27,38 @@ const tagRender = (props) => {
   );
 };
 const AddProduct = () => {
+  const [allVariant, setallVariant] = useState([]);
+  // Now fetch data from database to allvariant
+  useLayoutEffect(() => {
+    const allVariantData = async () => {
+      const getAllVariant = await axios.get(
+        "http://localhost:3000/api/v1/product/allvariant"
+      );
+      setallVariant(getAllVariant.data);
+    };
+    allVariantData();
+  }, []);
+
+  console.log("from state", allVariant);
+  const options = [
+    {
+      value: "gold",
+      label: "one",
+    },
+    {
+      value: "lime",
+      label: "one",
+    },
+    {
+      value: "green",
+      label: "one",
+    },
+    {
+      value: "cyan",
+      label: "one",
+    },
+  ];
+
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
   const onEditorStateChange = (newEditorState) => {
     // Update the editorState using setEditorState
