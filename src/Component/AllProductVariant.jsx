@@ -39,7 +39,7 @@ const AllProductVariant = () => {
     },
   ];
   const [allVariant, setallVariant] = useState([]);
-  // Now fetch data from database to allvariant
+  // Now fetch data from database to allvariant similar to useEffect . its prevent unnessary loading
   useLayoutEffect(() => {
     const allVariantData = async () => {
       let allVariantBlankArr = [];
