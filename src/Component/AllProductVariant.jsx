@@ -46,6 +46,8 @@ const AllProductVariant = () => {
       const getAllVariant = await axios.get(
         "http://localhost:3000/api/v1/product/allvariant"
       );
+
+      // manually insert data using loop , this data shown by output
       getAllVariant.data.map((item, index) => {
         console.log(item.color);
         allVariantBlankArr.push({
