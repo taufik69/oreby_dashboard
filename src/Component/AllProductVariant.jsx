@@ -64,7 +64,7 @@ const AllProductVariant = () => {
 
   return (
     <>
-      <Table columns={columns} dataSource={allVariant} />;
+      <Table columns={columns} dataSource={allVariant} />
     </>
   );
 };

@@ -3,6 +3,7 @@ import { EditorState } from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
 import { Input, Select, Tag } from "antd";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import axios from "axios";
 
 const tagRender = (props) => {
   const { label, value, closable, onClose } = props;
@@ -24,33 +25,60 @@ const tagRender = (props) => {
     </Tag>
   );
 };
+
 const AddProduct = () => {
   const options = [
     {
-      value: "gold",
-      label: "one",
-    },
-    {
-      value: "lime",
-      label: "one",
-    },
-    {
-      value: "green",
-      label: "one",
-    },
-    {
-      value: "cyan",
-      label: "one",
+      value: "Store_Id",
+      label: "StoreName",
     },
   ];
 
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
+  const [AllstoreData, setAllstoreData] = useState([]);
   const onEditorStateChange = (newEditorState) => {
     // Update the editorState using setEditorState
     setEditorState(newEditorState);
   };
 
-  // this is option object
+  /**
+   * todo: take allstore data using useEffect and api
+   * @Api : "http://localhost:3000/api/v1/marchant/allstore"
+   */
+
+  useEffect(() => {
+    const allStore = async () => {
+      let allstoreArr = [];
+      const data = await axios.get(
+        "http://localhost:3000/api/v1/marchant/allstore"
+      );
+      data.data.map((item) => {
+        allstoreArr.push({
+          value: item._id,
+          label: item.storeName,
+        });
+      });
+      setAllstoreData(allstoreArr);
+    };
+    allStore();
+
+    return () => {
+      const allStore = async () => {
+        let allstoreArr = [];
+        const data = await axios.get(
+          "http://localhost:3000/api/v1/marchant/allstore"
+        );
+        data.data.map((item) => {
+          allstoreArr.push({
+            value: item._id,
+            label: item.storeName,
+          });
+        });
+        setAllstoreData(allstoreArr);
+      };
+      allStore();
+    };
+  }, []);
 
   return (
     <>
@@ -72,14 +100,14 @@ const AddProduct = () => {
       </div>
       <br />
 
-      <h5>Select product Variant</h5>
+      <h5>Select Store</h5>
       <Select
         mode="multiple"
         tagRender={tagRender}
         style={{
           width: "100%",
         }}
-        options={options}
+        options={AllstoreData || options}
       />
     </>
   );

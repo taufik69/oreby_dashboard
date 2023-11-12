@@ -100,7 +100,6 @@ const AllProducts = () => {
     allProductsData();
   }, [realtimeProduct]);
 
-  //   console.log(Product[0].store.storeName);
   return (
     <>
       <ToastContainer
