@@ -105,6 +105,10 @@ const AddProduct = () => {
           store: StoreName,
         }
       );
+      // this editor state used to clear the all text after uploading product
+      setEditorState(EditorState.createEmpty());
+      setproductName(null);
+      setStoreName(null);
       if (data.data) {
         toast.success(`${data.data.name} upload suessfully`, {
           position: "top-right",
@@ -155,6 +159,7 @@ const AddProduct = () => {
       <Input
         placeholder="Basic usage"
         onChange={(e) => setproductName(e.target.value)}
+        value={productName}
       />
 
       <br />
@@ -177,6 +182,7 @@ const AddProduct = () => {
         onChange={(e) => {
           setStoreName(e);
         }}
+        value={StoreName}
         mode="multiple"
         tagRender={tagRender}
         style={{
