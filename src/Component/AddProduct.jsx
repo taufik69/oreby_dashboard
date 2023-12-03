@@ -23,7 +23,8 @@ const tagRender = (props) => {
       onClose={onClose}
       style={{
         marginRight: 3,
-        color: "purple",
+        color: "white",
+        backgroundColor: "green",
       }}
     >
       {label}
@@ -112,7 +113,7 @@ const AddProduct = () => {
       if (data.data) {
         toast.success(`${data.data.name} upload suessfully`, {
           position: "top-right",
-          autoClose: 5000,
+          autoClose: 4000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
