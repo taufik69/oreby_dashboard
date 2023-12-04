@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Form, Input, Card, Upload } from "antd";
+import { Button, Form, Input, Card, Upload, Spin } from "antd";
 import { LockOutlined, PlusOutlined } from "@ant-design/icons";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
@@ -20,7 +20,7 @@ const Registration = () => {
     facebok_url: "",
     linkedin_url: "",
   });
-
+  const [loading, setloading] = useState(false);
   /**
    * todo: Check all field data is available or not
    * @function changeHandler
@@ -40,6 +40,7 @@ const Registration = () => {
    */
   const HandleRegistration = async () => {
     try {
+      setloading(true);
       const data = await axios.post(
         "http://localhost:3000/api/v1/auth/registration",
         {
@@ -79,6 +80,7 @@ const Registration = () => {
           theme: "light",
         });
       }
+      setloading(false);
     } catch (error) {
       const { Error } = error.response.data;
       toast.error(`${Error}`, {
@@ -136,7 +138,7 @@ const Registration = () => {
                 required: true,
               },
             ]}
-          >     
+          >
             <Input
               id="FullName"
               onChange={changeHandler}
@@ -225,8 +227,12 @@ const Registration = () => {
           </Form.Item>
 
           <Form.Item>
-            <Button type="primary" block onClick={HandleRegistration}>
-              Registration
+            <Button
+              style={{ backgroundColor: "orange" }}
+              block
+              onClick={HandleRegistration}
+            >
+              {loading ? <Spin /> : "Registration"}
             </Button>
           </Form.Item>
         </Form>
@@ -236,4 +242,4 @@ const Registration = () => {
 };
 export default Registration;
 
-// 
+//
