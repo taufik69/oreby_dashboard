@@ -5,7 +5,6 @@ import { Input, Select, Tag, Button } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import PrdouctUpload from "./ProductUplad/PrdouctUpload";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import axios from "axios";
 
@@ -23,8 +22,7 @@ const tagRender = (props) => {
       onClose={onClose}
       style={{
         marginRight: 3,
-        color: "white",
-        backgroundColor: "green",
+        color: "purple",
       }}
     >
       {label}
@@ -113,7 +111,7 @@ const AddProduct = () => {
       if (data.data) {
         toast.success(`${data.data.name} upload suessfully`, {
           position: "top-right",
-          autoClose: 4000,
+          autoClose: 5000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -196,12 +194,6 @@ const AddProduct = () => {
       <br />
       <br />
       <br />
-      <PrdouctUpload />
-
-      <br />
-      <br />
-      <br />
-      <br />
       <Button
         style={{ width: "100%" }}
         type="primary"
@@ -210,7 +202,7 @@ const AddProduct = () => {
         size={size}
         onClick={HandleProductUpload}
       >
-        Download
+        Upload
       </Button>
     </>
   );
