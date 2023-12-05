@@ -81,9 +81,9 @@ const Registration = () => {
         });
       }
       setloading(false);
-    } catch (error) {
-      const { Error } = error.response.data;
-      toast.error(`${Error}`, {
+    } catch (err) {
+      const { error } = err.response.data;
+      toast.error(`${error}`, {
         position: "top-right",
         autoClose: 6000,
         hideProgressBar: false,
@@ -93,6 +93,7 @@ const Registration = () => {
         progress: undefined,
         theme: "colored",
       });
+      setloading(false);
     }
   };
 

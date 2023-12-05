@@ -11,11 +11,14 @@ import AddProduct from "./Component/AddProduct";
 import AllProducts from "./Component/AllProducts";
 import AllProductVariant from "./Component/AllProductVariant";
 import Registration from "./Component/Registration/Registration";
+import Login from "./Component/Login/Login";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route>
       <Route path="/registration" element={<Registration />}></Route>
+      <Route path="/login" element={<Login />}></Route>
+
       <Route path="/" element={<Home />}>
         <Route path="/merchant" element={<Merchant />}></Route>
         <Route path="/addProduct" element={<AddProduct />}></Route>
