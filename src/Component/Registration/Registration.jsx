@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button, Form, Input, Card, Upload, Spin } from "antd";
 import { LockOutlined, PlusOutlined } from "@ant-design/icons";
 import "react-toastify/dist/ReactToastify.css";
@@ -13,6 +14,7 @@ const normFile = (e) => {
 };
 
 const Registration = () => {
+  const navigate = useNavigate();
   const [userInfo, setUserInfo] = useState({
     FullName: "",
     Email: "",
@@ -81,6 +83,7 @@ const Registration = () => {
         });
       }
       setloading(false);
+      navigate("/login");
     } catch (err) {
       const { error } = err.response.data;
       toast.error(`${error}`, {

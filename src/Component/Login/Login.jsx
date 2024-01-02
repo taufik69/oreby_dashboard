@@ -38,9 +38,20 @@ const Login = () => {
         }
       );
       setloading(false);
-      const { sucess } = login.data.data;
+      const { sucess, role } = login.data.data;
 
-      if (sucess) {
+      if (role == "member") {
+        toast.error(`Only admin and member can login `, {
+          position: "top-right",
+          autoClose: 6000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+      } else {
         toast.success(`${sucess}`, {
           position: "top-right",
           autoClose: 5000,
@@ -52,9 +63,12 @@ const Login = () => {
           theme: "light",
         });
       }
-      navigate("/");
+
+      setTimeout(() => {
+        navigate("/");
+      }, 3000);
     } catch (error) {
-        console.log(error.response.data.error);
+      console.log(error.response.data.error);
       toast.error(`${error.response.data.error}`, {
         position: "top-right",
         autoClose: 6000,
