@@ -12,12 +12,14 @@ import AllProducts from "./Component/AllProducts";
 import AllProductVariant from "./Component/AllProductVariant";
 import Registration from "./Component/Registration/Registration";
 import Login from "./Component/Login/Login";
+import OTP from "./Component/OtpMatch/OTP";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route>
       <Route path="/registration" element={<Registration />}></Route>
       <Route path="/login" element={<Login />}></Route>
+      <Route path="/otp/:email" element={<OTP />}></Route>
 
       <Route path="/" element={<Home />}>
         <Route path="/merchant" element={<Merchant />}></Route>
