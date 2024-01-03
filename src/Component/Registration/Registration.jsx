@@ -81,9 +81,11 @@ const Registration = () => {
           progress: undefined,
           theme: "light",
         });
+        setloading(false);
+        setTimeout(() => {
+          navigate(`/otp/${userInfo.Email}`);
+        }, 2000);
       }
-      setloading(false);
-      navigate("/login");
     } catch (err) {
       const { error } = err.response.data;
       toast.error(`${error}`, {
