@@ -3,6 +3,7 @@ import { Button, Input, Space } from "antd";
 import { Card } from "antd";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
 
 // take url info in useparams
 
@@ -27,9 +28,13 @@ const OTP = () => {
 
   // check the given otp and match the otp in the database
   const HandleOtpSubmit = async () => {
-    setloading(true);
+    // setloading(true);
     try {
       const { otp1, otp2, otp3, otp4 } = value;
+      if (otp1 && otp2 && otp3 && otp4 == "") {
+        console.log("faka");
+      }
+      return;
       const givenOtp = otp1 + otp2 + otp3 + otp4;
       const otpMatch = await axios.post(
         "http://localhost:3000/api/v1/auth/otpmatch",
@@ -40,15 +45,48 @@ const OTP = () => {
       );
       setloading(false);
       if (otpMatch.data.data) {
-        console.log(otpMatch.data.data);
+        toast("🦄" + otpMatch.data.data, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
       }
     } catch (error) {
       setloading(false);
-      console.log(error.response.data.data.Error);
+
+      toast.error("🦄" + error.response.data.data.Error, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     }
   };
   return (
     <>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+      {/* Same as */}
+      <ToastContainer />
       <Card
         bordered={true}
         style={{
