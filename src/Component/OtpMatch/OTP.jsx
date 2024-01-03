@@ -1,13 +1,27 @@
 import React, { useState } from "react";
-import { Button, InputNumber, Space } from "antd";
+import { Button, Input, Space } from "antd";
 import { Card } from "antd";
 
 const OTP = () => {
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState({
+    otp1: "",
+    otp2: "",
+    otp3: "",
+    otp4: "",
+  });
+
+  // make HandleOtp functionality for arrenging all input value
+
+  const HandleChange = (event) => {
+    setValue({
+      ...value,
+      [event.target.name]: event.target.value,
+    });
+  };
   return (
     <>
       <Card
-        bordered={false}
+        bordered={true}
         style={{
           width: 600,
           margin: "40vh auto",
@@ -16,47 +30,23 @@ const OTP = () => {
       >
         <h1>OTP </h1>
         <Space>
-          <InputNumber
-            min={1}
-            max={1}
-            value={value}
-            onChange={setValue}
-            id="otp1"
-          />
-          <InputNumber
-            min={1}
-            max={1}
-            value={value}
-            onChange={setValue}
-            id="otp2"
-          />
-          <InputNumber
-            min={1}
-            max={1}
-            value={value}
-            onChange={setValue}
-            id="otp3"
-          />
-          <InputNumber
-            min={1}
-            max={1}
-            value={value}
-            onChange={setValue}
-            id="otp4"
-          />
+          <Input value={value.otp1} onChange={HandleChange} name="otp1" />
+          <Input value={value.otp2} onChange={HandleChange} name="otp2" />
+          <Input value={value.otp3} onChange={HandleChange} name="otp3" />
+          <Input value={value.otp4} onChange={HandleChange} name="otp4" />
 
           <Button
             type="primary"
             block
             onClick={() => {
-              setValue(99);
+              setValue(" ");
             }}
           >
             Reset
           </Button>
         </Space>
-        <Button type="primary" block style={{ marginTop: "10px" }}>
-          Loading
+        <Button type="primary" block style={{ marginTop: "50px" }}>
+          Submt
         </Button>
       </Card>
     </>
