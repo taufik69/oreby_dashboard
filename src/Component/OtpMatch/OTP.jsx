@@ -4,10 +4,12 @@ import { Card } from "antd";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 // take url info in useparams
 
 const OTP = () => {
+  const navigate = useNavigate();
   const params = useParams();
   const [loading, setloading] = useState(false);
   const [value, setValue] = useState({
@@ -16,6 +18,7 @@ const OTP = () => {
     otp3: "",
     otp4: "",
   });
+
 
   // make HandleOtp functionality for arrenging all input value
 
@@ -28,24 +31,37 @@ const OTP = () => {
 
   // check the given otp and match the otp in the database
   const HandleOtpSubmit = async () => {
-    // setloading(true);
     try {
+      setloading(true);
       const { otp1, otp2, otp3, otp4 } = value;
-      if (otp1 && otp2 && otp3 && otp4 == "") {
-        console.log("faka");
-      }
-      return;
       const givenOtp = otp1 + otp2 + otp3 + otp4;
-      const otpMatch = await axios.post(
-        "http://localhost:3000/api/v1/auth/otpmatch",
-        {
-          email: "taufik.cit.bd@gmail.com",
-          randomOTp: givenOtp,
+      if (givenOtp != "") {
+        const otpMatch = await axios.post(
+          "http://localhost:3000/api/v1/auth/otpmatch",
+          {
+            email:params.email,
+            randomOTp: givenOtp,
+          }
+        );
+        setloading(false);
+
+        if (otpMatch.data.data) {
+          toast("🚀" + otpMatch.data.data.Message, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
         }
-      );
-      setloading(false);
-      if (otpMatch.data.data) {
-        toast("🦄" + otpMatch.data.data, {
+        // Now navigate to opt page to login page 
+        navigate('/login')
+      } else {
+        setloading(false);
+        toast.error("🦄" + error.response.data.data.Error, {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -58,7 +74,7 @@ const OTP = () => {
       }
     } catch (error) {
       setloading(false);
-
+      console.log(error.response.data.data.Error);
       toast.error("🦄" + error.response.data.data.Error, {
         position: "top-right",
         autoClose: 5000,
