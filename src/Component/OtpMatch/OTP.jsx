@@ -19,7 +19,6 @@ const OTP = () => {
     otp4: "",
   });
 
-
   // make HandleOtp functionality for arrenging all input value
 
   const HandleChange = (event) => {
@@ -39,7 +38,7 @@ const OTP = () => {
         const otpMatch = await axios.post(
           "http://localhost:3000/api/v1/auth/otpmatch",
           {
-            email:params.email,
+            email: params.email,
             randomOTp: givenOtp,
           }
         );
@@ -48,7 +47,7 @@ const OTP = () => {
         if (otpMatch.data.data) {
           toast("🚀" + otpMatch.data.data.Message, {
             position: "top-right",
-            autoClose: 5000,
+            autoClose: 2000,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
@@ -57,8 +56,10 @@ const OTP = () => {
             theme: "light",
           });
         }
-        // Now navigate to opt page to login page 
-        navigate('/login')
+        // Now navigate to opt page to login page
+        setTimeout(() => {
+          navigate("/login");
+        }, 2000);
       } else {
         setloading(false);
         toast.error("🦄" + error.response.data.data.Error, {

@@ -49,12 +49,12 @@ const Login = () => {
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-          theme: "colored",
+          theme: "light",
         });
-      } else {
+      } else if (sucess) {
         toast.success(`${sucess}`, {
           position: "top-right",
-          autoClose: 5000,
+          autoClose: 2000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -62,11 +62,12 @@ const Login = () => {
           progress: undefined,
           theme: "light",
         });
-        navigate("/");
+        setTimeout(() => {
+          navigate("/");
+        }, 2000);
       }
-    } catch (error) {
-      console.log(error.response.data.error);
-      toast.error(`${error.response.data.error}`, {
+    } catch (err) {
+      toast.error(`${err.response.data.data.error}`, {
         position: "top-right",
         autoClose: 6000,
         hideProgressBar: false,

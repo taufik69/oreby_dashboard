@@ -43,6 +43,7 @@ const Registration = () => {
   const HandleRegistration = async () => {
     try {
       setloading(true);
+
       const data = await axios.post(
         "http://localhost:3000/api/v1/auth/registration",
         {
@@ -54,6 +55,7 @@ const Registration = () => {
         }
       );
 
+      console.log(data);
       const { sucess } = data.data.data;
       /**
        * todo : clear the all input state value.
@@ -73,7 +75,7 @@ const Registration = () => {
       if (sucess) {
         toast.success(`${sucess}`, {
           position: "top-right",
-          autoClose: 5000,
+          autoClose: 2000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -149,6 +151,7 @@ const Registration = () => {
               id="FullName"
               onChange={changeHandler}
               value={userInfo.FullName}
+              aria-required
             />
           </Form.Item>
           <Form.Item
@@ -160,7 +163,12 @@ const Registration = () => {
               },
             ]}
           >
-            <Input id="Email" onChange={changeHandler} value={userInfo.Email} />
+            <Input
+              id="Email"
+              onChange={changeHandler}
+              value={userInfo.Email}
+              aria-required
+            />
           </Form.Item>
           <Form.Item
             name="password"
@@ -178,6 +186,7 @@ const Registration = () => {
               placeholder="Password"
               onChange={changeHandler}
               value={userInfo.password}
+              aria-required
             />
           </Form.Item>
           <Form.Item
@@ -212,6 +221,7 @@ const Registration = () => {
               id="facebok_url"
               onChange={changeHandler}
               value={userInfo.facebok_url}
+              aria-required
             />
           </Form.Item>
 
@@ -229,6 +239,7 @@ const Registration = () => {
               id="linkedin_url"
               onChange={changeHandler}
               value={userInfo.linkedin_url}
+              aria-required
             />
           </Form.Item>
 
