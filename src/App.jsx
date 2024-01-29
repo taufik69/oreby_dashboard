@@ -13,6 +13,7 @@ import AllProductVariant from "./Component/AllProductVariant";
 import Registration from "./Component/Registration/Registration";
 import Login from "./Component/Login/Login";
 import OTP from "./Component/OtpMatch/OTP";
+import ForgotPassword from "./Component/ForgotPassword/ForgotPassword";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -20,6 +21,7 @@ const router = createBrowserRouter(
       <Route path="/registration" element={<Registration />}></Route>
       <Route path="/login" element={<Login />}></Route>
       <Route path="/otp/:email" element={<OTP />}></Route>
+      <Route path="/forgotpassword" element={<ForgotPassword />}></Route>
 
       <Route path="/" element={<Home />}>
         <Route path="/merchant" element={<Merchant />}></Route>

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Card, Spin, Button, Checkbox, Form, Input } from "antd";
 import axios from "axios";
 import "react-toastify/dist/ReactToastify.css";
@@ -183,6 +183,18 @@ const Login = () => {
               ) : (
                 "Login"
               )}
+            </Button>
+
+            <Button
+              style={{
+                backgroundColor: "green",
+                marginTop: "15px",
+                color: "#ffff",
+              }}
+              block
+              onClick={() => navigate("/forgotpassword")}
+            >
+              Forgot password
             </Button>
           </Form.Item>
         </Form>
