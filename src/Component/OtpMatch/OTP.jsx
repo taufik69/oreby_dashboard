@@ -28,6 +28,15 @@ const OTP = () => {
     });
   };
 
+  /**
+   * todo : traversing input field  by pressing arrow button
+   */
+  const HandleKey = (e) => {
+    if (e.key == "ArrowRight") {
+      console.log(e.target.name.nextSibling);
+    }
+  };
+
   // check the given otp and match the otp in the database
   const HandleOtpSubmit = async () => {
     try {
@@ -114,10 +123,30 @@ const OTP = () => {
       >
         <h1>OTP </h1>
         <Space>
-          <Input value={value.otp1} onChange={HandleChange} name="otp1" />
-          <Input value={value.otp2} onChange={HandleChange} name="otp2" />
-          <Input value={value.otp3} onChange={HandleChange} name="otp3" />
-          <Input value={value.otp4} onChange={HandleChange} name="otp4" />
+          <Input
+            value={value.otp1}
+            onChange={HandleChange}
+            name="otp1"
+            onKeyDown={HandleKey}
+          />
+          <Input
+            value={value.otp2}
+            onChange={HandleChange}
+            name="otp2"
+            onKeyDown={HandleKey}
+          />
+          <Input
+            value={value.otp3}
+            onChange={HandleChange}
+            name="otp3"
+            onKeyDown={HandleKey}
+          />
+          <Input
+            value={value.otp4}
+            onChange={HandleChange}
+            name="otp4"
+            onKeyDown={HandleKey}
+          />
 
           <Button
             type="primary"
