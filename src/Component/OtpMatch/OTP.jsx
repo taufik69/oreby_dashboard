@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Button, Input, Space } from "antd";
 import { Card } from "antd";
 import { useParams } from "react-router-dom";
@@ -28,6 +28,28 @@ const OTP = () => {
     });
   };
 
+  /**
+   * todo : HandleClick function apply in input filed
+   */
+
+  // const HandleClick = () => {
+  //   console.log("hello from click");
+  // };
+
+  /**
+   * todo : HandlekeyDown function apply in input filed
+   */
+
+  // const HandlekeyDown = () => {
+  //   console.log("hello from key down");
+  // };
+
+  // using use ref to take all input reference
+  const otpref = useRef([]);
+  useEffect(() => {
+    otpref.current.focus();
+    console.log(otpref.current.input);
+  }, []);
   // check the given otp and match the otp in the database
   const HandleOtpSubmit = async () => {
     try {
@@ -114,10 +136,38 @@ const OTP = () => {
       >
         <h1>OTP </h1>
         <Space>
-          <Input value={value.otp1} onChange={HandleChange} name="otp1" />
-          <Input value={value.otp2} onChange={HandleChange} name="otp2" />
-          <Input value={value.otp3} onChange={HandleChange} name="otp3" />
-          <Input value={value.otp4} onChange={HandleChange} name="otp4" />
+          <Input
+            value={value.otp1}
+            onChange={HandleChange}
+            // onClick={HandleClick}
+            // onKeyDown={HandlekeyDown}
+            name="otp1"
+            ref={otpref}
+          />
+          <Input
+            value={value.otp2}
+            onChange={HandleChange}
+            // onClick={HandleClick}
+            // onKeyDown={HandlekeyDown}
+            name="otp2"
+            ref={otpref}
+          />
+          <Input
+            value={value.otp3}
+            onChange={HandleChange}
+            // onClick={HandleClick}
+            // onKeyDown={HandlekeyDown}
+            name="otp3"
+            ref={otpref}
+          />
+          <Input
+            value={value.otp4}
+            onChange={HandleChange}
+            // onClick={HandleClick}
+            // onKeyDown={HandlekeyDown}
+            name="otp4"
+            ref={otpref}
+          />
 
           <Button
             type="primary"
