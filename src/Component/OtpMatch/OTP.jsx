@@ -12,28 +12,34 @@ const OTP = () => {
   const navigate = useNavigate();
   const params = useParams();
   const [loading, setloading] = useState(false);
-  const [inputnumber, setinputnumber] = useState(null);
-
+  const [otp, setotp] = useState(new Array(4).fill(""));
   const inputRef = useRef([]);
-  console.log(inputRef.current);
+
+  useEffect(() => {
+    if (inputRef.current[0]) {
+      inputRef.current[0].focus();
+    }
+  }, []);
 
   /**
-   * todo : HandleClick function apply in input filed
+   * todo : HandleInputChange machanisim
    */
 
-  // const HandleClick = () => {
-  //   console.log("hello from click");
-  // };
+  const HandleInputChange = (e, index) => {
+    let value = e.target.value;
+    if (isNaN(value)) return;
 
-  /**
-   * todo : HandlekeyDown function apply in input filed
-   */
+    const newOtp = [...otp];
+    newOtp[index] = value.substring(value.length - 1);
+    setotp(newOtp);
+    // now the otp is apart form each other , now join the all given otp
+    let combineOtp = newOtp.join("");
 
-  // const HandlekeyDown = () => {
-  //   console.log("hello from key down");
-  // };
-
-  // check the given otp and match the otp in the database
+    // check input field and move cursor or focus  next input field
+    if (value && index < otp.length - 1 && inputRef.current[index + 1]) {
+      inputRef.current[index + 1].focus();
+    }
+  };
 
   return (
     <>
@@ -47,10 +53,13 @@ const OTP = () => {
       >
         <h1>OTP </h1>
         <Space>
-          {[1, 2, 3, 4].map((item, index) => (
+          {otp.map((item, index) => (
             <Input
-              name="otp4"
+              key={index}
+              name={`input`}
+              maxLength={1}
               ref={(input) => (inputRef.current[index] = input)}
+              onChange={(e) => HandleInputChange(e, index)}
             />
           ))}
         </Space>
