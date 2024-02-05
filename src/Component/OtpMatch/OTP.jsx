@@ -52,7 +52,8 @@ const OTP = () => {
     if (e.key == "ArrowRight" && index < otp.length - 1) {
       setinputerr(false);
       inputRef.current[index + 1].focus();
-    } else if (e.key == "Backspace" && !otp[index] && index > 0) {
+    }
+    if (e.key == "Backspace" && !otp[index] && index > 0) {
       setinputerr(false);
       inputRef.current[index - 1].focus();
     }
