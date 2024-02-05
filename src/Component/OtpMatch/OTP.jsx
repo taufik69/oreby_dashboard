@@ -32,6 +32,10 @@ const OTP = () => {
       return setinputerr(true);
     }
 
+    if (value == "") {
+      return setinputerr(true);
+    }
+
     const newOtp = [...otp];
     newOtp[index] = value.substring(value.length - 1);
     setotp(newOtp);
