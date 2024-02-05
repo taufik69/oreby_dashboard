@@ -32,7 +32,7 @@ const OTP = () => {
       return setinputerr(true);
     }
 
-    if (value === "") {
+    if (value.length < 0) {
       return setinputerr(true);
     }
 
@@ -53,16 +53,21 @@ const OTP = () => {
   
    */
   const HandlekeyDown = (e, index) => {
-    if (e.key == "ArrowRight" && index < otp.length - 1) {
+    if (e.key === "ArrowRight" && index < otp.length - 1) {
       setinputerr(false);
       inputRef.current[index + 1].focus();
     }
-    if (e.key == "Backspace" && !otp[index] && index > 0) {
+    if (e.key === "Backspace" && !otp[index] && index > 0) {
       setinputerr(false);
       inputRef.current[index - 1].focus();
     }
   };
-
+  /**
+   * todo : HandleOtp function get this opt and send to server
+   */
+  const HandleOtp = () => {
+    alert("clicked done");
+  };
   return (
     <>
       <Card
@@ -95,6 +100,18 @@ const OTP = () => {
             />
           ))}
         </Space>
+
+        <Button
+          type="primary"
+          size="big"
+          block
+          onClick={HandleOtp}
+          style={{
+            marginTop: "20px",
+          }}
+        >
+          Submit Otp
+        </Button>
       </Card>
     </>
   );

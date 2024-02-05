@@ -55,7 +55,6 @@ const Registration = () => {
         }
       );
 
-      console.log(data);
       const { sucess } = data.data.data;
       /**
        * todo : clear the all input state value.

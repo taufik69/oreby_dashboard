@@ -24,6 +24,7 @@ const ForgotPassword = () => {
       setsucessAlert(sucessData.data.data);
       setloader(false);
       setemail("");
+      window.location.href("https://mail.google.com/");
     } catch (error) {
       setloader(false);
       seterrorAlert(error.response.data.error);
