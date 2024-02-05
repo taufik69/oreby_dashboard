@@ -32,7 +32,7 @@ const OTP = () => {
       return setinputerr(true);
     }
 
-    if (value == "") {
+    if (value === "") {
       return setinputerr(true);
     }
 
