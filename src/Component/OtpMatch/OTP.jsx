@@ -106,19 +106,7 @@ const OTP = () => {
           type="primary"
           size="big"
           block
-          onClick={HandleOtp}
-          style={{
-            marginTop: "20px",
-          }}
-        >
-          Submit Otp
-        </Button>
-
-        <Button
-          type="primary"
-          size="big"
-          block
-          onClick={HandleOtp}
+          // onClick={HandleOtp}
           style={{
             marginTop: "20px",
           }}
