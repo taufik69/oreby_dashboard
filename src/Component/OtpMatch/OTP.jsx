@@ -32,9 +32,6 @@ const OTP = () => {
       return setinputerr(true);
     }
 
-    // if (value === "") {
-    //   return setinputerr(true);
-    // }
 
     const newOtp = [...otp];
     newOtp[index] = value.substring(value.length - 1);
@@ -50,7 +47,6 @@ const OTP = () => {
   };
   /**
    * @function(e , index){}
-  
    */
   const HandlekeyDown = (e, index) => {
     if (e.key == "ArrowRight" && index < otp.length - 1) {
