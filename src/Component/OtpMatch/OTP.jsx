@@ -32,7 +32,6 @@ const OTP = () => {
       return setinputerr(true);
     }
 
-
     const newOtp = [...otp];
     newOtp[index] = value.substring(value.length - 1);
     setotp(newOtp);
@@ -63,6 +62,10 @@ const OTP = () => {
    * HandleInput function implementation
    * @param (item ,index)
    */
+
+  const HandleOtp = () => {
+    console.log("mar");
+  };
 
   const HandleInput = (e, index) => {
     try {
