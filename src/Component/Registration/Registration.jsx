@@ -84,7 +84,7 @@ const Registration = () => {
         });
         setloading(false);
         setTimeout(() => {
-          navigate(`/otp/${userInfo.Email}`);
+          // navigate(`/otp/${userInfo.Email}`);
         }, 2000);
       }
     } catch (err) {
