@@ -117,7 +117,7 @@ const OTP = () => {
             marginTop: "20px",
           }}
         >
-          Submit Otp
+          Otp
         </Button>
       </Card>
     </>
