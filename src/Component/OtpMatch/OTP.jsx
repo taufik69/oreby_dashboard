@@ -32,7 +32,6 @@ const OTP = () => {
       return setinputerr(true);
     }
 
-
     const newOtp = [...otp];
     newOtp[index] = value.substring(value.length - 1);
     setotp(newOtp);
@@ -103,6 +102,29 @@ const OTP = () => {
             />
           ))}
         </Space>
+        <Button
+          type="primary"
+          size="big"
+          block
+          onClick={HandleOtp}
+          style={{
+            marginTop: "20px",
+          }}
+        >
+          Submit Otp
+        </Button>
+
+        <Button
+          type="primary"
+          size="big"
+          block
+          onClick={HandleOtp}
+          style={{
+            marginTop: "20px",
+          }}
+        >
+          Submit Otp
+        </Button>
       </Card>
     </>
   );
