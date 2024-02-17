@@ -32,16 +32,16 @@ const OTP = () => {
       return setinputerr(true);
     }
 
-    if (value.length < 0) {
-      return setinputerr(true);
-    }
+    // if (value === "") {
+    //   return setinputerr(true);
+    // }
 
     const newOtp = [...otp];
     newOtp[index] = value.substring(value.length - 1);
     setotp(newOtp);
     // now the otp is apart form each other , now join the all given otp
     let combineOtp = newOtp.join("");
-    console.log("combineOtp", combineOtp);
+
     // check input field and move cursor or focus  next input field
     if (value && index < otp.length - 1 && inputRef.current[index + 1]) {
       inputRef.current[index + 1].focus();
@@ -62,11 +62,18 @@ const OTP = () => {
       inputRef.current[index - 1].focus();
     }
   };
+
   /**
-   * todo : HandleOtp function get this opt and send to server
+   * HandleInput function implementation
+   * @param (item ,index)
    */
-  const HandleOtp = () => {
-    alert("clicked done");
+
+  const HandleInput = (e, index) => {
+    try {
+      inputRef.current[index].setSelectionRange(0, 2);
+    } catch (error) {
+      console.log("HandleInput error ", error);
+    }
   };
   return (
     <>
@@ -97,6 +104,7 @@ const OTP = () => {
               ref={(input) => (inputRef.current[index] = input)}
               onChange={(e) => HandleInputChange(e, index)}
               onKeyDown={(e) => HandlekeyDown(e, index)}
+              onClick={(e) => HandleInput(e, index)}
             />
           ))}
         </Space>
