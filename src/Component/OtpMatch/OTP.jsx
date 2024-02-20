@@ -2,19 +2,26 @@ import React, { useEffect, useRef, useState } from "react";
 import { Button, Input, Space, Alert } from "antd";
 import { Card } from "antd";
 import { useParams } from "react-router-dom";
-import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 // take url info in useparams
 
 const OTP = () => {
   const navigate = useNavigate();
-  const params = useParams();
   const [loading, setloading] = useState(false);
   const [inputerr, setinputerr] = useState(false);
   const [otp, setotp] = useState(new Array(4).fill(""));
+  const [finalOtp, setFinalOtp] = useState("");
+  const [urlEmail, seturlEmail] = useState("");
   const inputRef = useRef([]);
+
+  // get params in useparams
+  const { email } = useParams();
+  useEffect(() => {
+    seturlEmail(email);
+  }, [email]);
 
   useEffect(() => {
     if (inputRef.current[0]) {
@@ -37,7 +44,7 @@ const OTP = () => {
     setotp(newOtp);
     // now the otp is apart form each other , now join the all given otp
     let combineOtp = newOtp.join("");
-
+    setFinalOtp(combineOtp);
     // check input field and move cursor or focus  next input field
     if (value && index < otp.length - 1 && inputRef.current[index + 1]) {
       inputRef.current[index + 1].focus();
@@ -49,6 +56,9 @@ const OTP = () => {
    */
   const HandlekeyDown = (e, index) => {
     if (e.key === "ArrowRight" && index < otp.length - 1) {
+      if (!value) {
+        return;
+      }
       setinputerr(false);
       inputRef.current[index + 1].focus();
     }
@@ -58,15 +68,6 @@ const OTP = () => {
     }
   };
 
-  /**
-   * HandleInput function implementation
-   * @param (item ,index)
-   */
-
-  const HandleOtp = () => {
-    console.log("mar");
-  };
-
   const HandleInput = (e, index) => {
     try {
       inputRef.current[index].setSelectionRange(0, 2);
@@ -74,8 +75,68 @@ const OTP = () => {
       console.log("HandleInput error ", error);
     }
   };
+
+  /**
+   * todo HandleOtp function
+   * @param ()
+   * @api :http://localhost:5000/api/v1/auth/otpmatch
+   */
+
+  const HandleOtp = async () => {
+    try {
+      setloading(true);
+      const returnOtpData = await axios.post(
+        "http://localhost:5000/api/v1/auth/otpmatch",
+        {
+          email: urlEmail,
+          randomOTp: finalOtp,
+        }
+      );
+      const { Message } = returnOtpData.data.data;
+      toast.success(`${Message}`, {
+        position: "top-right",
+        autoClose: 1500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      setTimeout(() => {
+        navigate("/login");
+      }, 2000);
+      setloading(false);
+    } catch (error) {
+      const { Error } = error.response.data.data;
+      toast.error(`${Error}`, {
+        position: "top-right",
+        autoClose: 6000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+      setloading(false);
+    }
+  };
   return (
     <>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+      <ToastContainer />
       <Card
         bordered={true}
         style={{
@@ -107,19 +168,31 @@ const OTP = () => {
             />
           ))}
         </Space>
-
-        <Button
-          type="primary"
-          size="big"
-          block
-          onClick={HandleOtp}
-          // onClick={HandleOtp}
-          style={{
-            marginTop: "20px",
-          }}
-        >
-          Otp
-        </Button>
+        {loading ? (
+          <Button
+            type="primary"
+            size="big"
+            block
+            loading
+            style={{
+              marginTop: "20px",
+            }}
+          >
+            Loading
+          </Button>
+        ) : (
+          <Button
+            type="primary"
+            size="big"
+            block
+            onClick={HandleOtp}
+            style={{
+              marginTop: "20px",
+            }}
+          >
+            Otp
+          </Button>
+        )}
       </Card>
     </>
   );

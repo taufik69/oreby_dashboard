@@ -45,7 +45,7 @@ const Registration = () => {
       setloading(true);
 
       const data = await axios.post(
-        "http://localhost:3000/api/v1/auth/registration",
+        "http://localhost:5000/api/v1/auth/registration",
         {
           fullName: userInfo.FullName,
           email: userInfo.Email,
@@ -84,7 +84,7 @@ const Registration = () => {
         });
         setloading(false);
         setTimeout(() => {
-          // navigate(`/otp/${userInfo.Email}`);
+          navigate(`/otp/${userInfo.Email}`);
         }, 2000);
       }
     } catch (err) {
