@@ -113,6 +113,7 @@ const OTP = () => {
           size="big"
           block
           onClick={HandleOtp}
+          // onClick={HandleOtp}
           style={{
             marginTop: "20px",
           }}
